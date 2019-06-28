@@ -19,12 +19,17 @@ from django.shortcuts import get_object_or_404
 USER_MODEL = User
 api_key_2fa = settings.API_KEY_2FA
 
+registeration_otp_template = "Registration_Template"
 
-def send_otp_2fa(request, phone):
+password_reset_otp_template = "Password_Reset_Template"
+
+
+def send_otp_2fa(request, phone, purpose):
+    otp_template = registeration_otp_template if purpose==1 else password_reset_otp_template
     if 'user_session_data' in request.session:
         del request.session['user_session_data']
-    url = "http://2factor.in/API/V1/{api_key_2fa}/SMS/{phone}/AUTOGEN/OTPSEND".format(api_key_2fa=api_key_2fa,
-                                                                                      phone=phone)
+    url = "http://2factor.in/API/V1/{api_key_2fa}/SMS/{phone}/AUTOGEN/{otp_template}".format(api_key_2fa=api_key_2fa,
+                                                                                      phone=phone, otp_template=otp_template)
     response = requests.request("GET", url)
     data = response.json()
     request.session['user_session_data'] = data['Details']
@@ -33,14 +38,14 @@ def send_otp_2fa(request, phone):
 
 def otp_generate(request, user):
     request.session["user_session_uuid"] = str(user.uuid)
-    send_otp_2fa(request, user.phone)
+    send_otp_2fa(request, user.phone, purpose=1)
     messages.info(request, alert_messages.REGISTERATION_OTP_SENT_MESSAGE)
     return redirect("accounts:otp_verify")
 
 
 def password_reset_otp_generate(request, user):
     request.session["user_session_uuid"] = str(user.uuid)
-    send_otp_2fa(request, user.phone)
+    send_otp_2fa(request, user.phone, purpose=2)
     messages.info(request, alert_messages.PASSWORD_RESET_OTP_SENT_MESSAGE)
     return redirect("accounts:password_reset_new")
 
@@ -95,7 +100,7 @@ class OTPVerifyView(FormView):
             login(request, user)
             return redirect("portal:home")
         else:
-            messages.warning(request, alert_messages.OTP_INCORRECT_MESSAGE)
+            messages.error(request, alert_messages.OTP_INCORRECT_MESSAGE)
             return redirect("accounts:otp_verify")
 
 
@@ -156,7 +161,7 @@ class PasswordResetNewView(FormView):
             login(self.request, user)
             return redirect("portal:home")
         else:
-            messages.warning(self.request, "please enter correct OTP!")
+            messages.error(self.request, "please enter correct OTP!")
             return redirect("accounts:password_reset_new")
 
 

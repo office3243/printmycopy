@@ -33,13 +33,25 @@
 
 
 
-    <body >
+    <body>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert mb-0 alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
         <div class="loader">
             <img src="{% static "images/Spinner-1s-200px.gif" %}" alt="Loading ...">
         </div>
 
-        </div>
         {% include "portal/header.html" %}
+
 
         <div class="container tz-section">
 
@@ -47,6 +59,7 @@
             {% endblock %}
 
         </div>
+
 
 
         

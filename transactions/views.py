@@ -66,6 +66,7 @@ class TransactionAddView(CreateView):
             form.instance.file = file
             form.instance.uuid = file.uuid
             form.save()
+            messages.success(self.request, alert_messages.TRANSACTION_ADDED_MESSGAE)
             return redirect('transactions:get_otp', otp_1=otp_1, otp_2=otp_2)
         except:
             messages.warning(self.request, alert_messages.GETTING_ISSUES)
