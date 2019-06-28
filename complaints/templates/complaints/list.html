@@ -5,8 +5,8 @@
 
 {% block body %}
 
-    <div class="jumbotron container">
-        <h1>My Complaints | {{ user }}</h1>
+    <div class="container">
+        <h3 class="text-center">My Complaints</h3>
         <br><br>
 
         {% if complaints %}
@@ -40,8 +40,6 @@
         <a href="{% url "complaints:add" %}"><span class="float-right fa fa-plus round"></span> </a>
 
     </div>
-
-    <p><a href="{% url 'portal:home' %}">Home</a></p>
 
 
 {% endblock %}

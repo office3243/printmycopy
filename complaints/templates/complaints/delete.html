@@ -5,21 +5,15 @@
 
 {% block body %}
 
-    <h2>{{ complaint.get_display_text }}</h2>
-
 
     <div class="container col-lg-4">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-
-
+            <h3>Please confirm you want to delete complaint!</h3>
             {{ form|crispy }}
 
-
-            <input class="btn btn-info" value="Submit" type="submit"/>
+            <input class="btn btn-danger" value="Delete" type="submit"/>
         </form>
-
-        <p>Create new account ! <a href="{% url 'portal:home' %}">Home</a></p>
 
     </div>
 

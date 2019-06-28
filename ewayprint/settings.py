@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'paywix',
 
     'simple_history',
-    'django_extensions',
     'widget_tweaks',
 
 ]
