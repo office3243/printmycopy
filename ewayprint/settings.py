@@ -27,7 +27,7 @@ SECRET_KEY = 'mvazb9#yw1*vro%mbz-dm*72i-=a0l$ppgvqi)lyaq2x&*03z9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", ]
+ALLOWED_HOSTS = ["printmycopy.com", "www.printmycopy.com"]
 
 
 # Application definition
