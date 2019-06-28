@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from django.contrib.messages import constants as messages
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -139,13 +138,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -160,47 +159,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
-}
-
-
-API_KEY_2FA = "c9ef2a2e-806a-11e9-ade6-0200cd936042"
-
-AUTH_USER_MODEL = 'accounts.User'
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-
-)
-
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-from django.urls import reverse_lazy
-
-LOGIN_URL = reverse_lazy('accounts:login')
-LOGIN_REDIRECT_URL = reverse_lazy('portal:home')
-
-INSUFFICIENT_BALANCE_MESSAGE = "You don't have enough balance. Kindly recharge your wallet to make this transaction"
-
-# site_domain = "http://www.printmycopy.com/"
-site_domain = "http://127.0.0.1:8000/"
-
-
-# Payments App
-PAYU_MERCHANT_KEY = "mdLYzH6I" # Merchant key from payu
-PAYU_KEY = "mdLYzH6I"
-PAYU_SALT = "BgIZKB6m9D" # Merchant salt from payu
-PAYMENT_MODE ='TEST'
-
-PAYU_SUCCESS_URL = site_domain + "payments/success/"
-PAYU_FAILURE_URL = site_domain + "payments/failure/"
-
-
-GRAPH_MODELS = {
-  'all_applications': True,
-  'group_models': True,
-}
 
 
