@@ -1,0 +1,60 @@
+{% extends 'portal/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}My Transactions{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron container">
+        <h1>My Transactions | {{ user }}</h1>
+        <br><br>
+
+        {% if transactions %}
+
+            <table class="table table-hover">
+                <tr class="info">
+                    <td>Sr</td>
+                    <td>Name</td>
+                    <td>Amount</td>
+                    <td>Payment Mode</td>
+                    <td>Printed</td>
+                    <td>Actions</td>
+                </tr>
+
+                {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="{{transaction.get_absolute_url }}">{{ transaction.get_display_text }}</a></td>
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.payment_mode }}</td>
+                        <td>{{ transaction.is_printed }}</td>
+
+                        <td>
+                            {% if not transaction.is_printed %}
+                                <form method="post" action="{{ transaction.get_delete_url }}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </form>
+                            {% else %}
+                                <form method="post" action="{{ transaction.get_hide_url }}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" type="submit">Hide</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        {% else %}
+            <h4>No Transactions Yet</h4>
+
+        {% endif %}
+
+
+    </div>
+
+    <p><a href="{% url 'portal:home' %}">Home</a></p>
+
+
+{% endblock %}

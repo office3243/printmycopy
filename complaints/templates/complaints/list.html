@@ -1,0 +1,47 @@
+{% extends 'portal/base.html' %}
+{#{% load crispy_forms_tags %}#}
+
+{% block title %}My Complaints{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron container">
+        <h1>My Complaints | {{ user }}</h1>
+        <br><br>
+
+        {% if complaints %}
+
+            <table class="table table-hover">
+            <tr class="info">
+                <td>Date</td>
+                <td>Status</td>
+                <td>Category</td>
+                <td>Details</td>
+                <td>Delete</td>
+
+            </tr>
+
+            {% for complaint in complaints %}
+                <tr>
+                    <td><a href="{{ complaint.get_absolute_url }}">{{ complaint.on }}</a></td>
+                    <td>{{ complaint.status }}</td>
+                    <td>{{ complaint.category }}</td>
+                    <td>{{ complaint.details }}</td>
+                    <td><a href="{{ complaint.get_delete_url }}"><button class="btn btn-danger">Delete</button></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        {% else %}
+
+            <h4>No Complaints Yet</h4>
+
+        {% endif %}
+        <a href="{% url "complaints:add" %}"><span class="float-right fa fa-plus round"></span> </a>
+
+    </div>
+
+    <p><a href="{% url 'portal:home' %}">Home</a></p>
+
+
+{% endblock %}

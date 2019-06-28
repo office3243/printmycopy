@@ -1,0 +1,159 @@
+{% extends 'portal/base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+
+{% block title %}Add Transactions{% endblock %}
+{% block body %}
+
+    <form enctype="multipart/form-data" id="fileForm" method="POST" novalidate="">
+        {% csrf_token %}
+
+        <div class="row tz-upload-row">
+
+            <div class="col-md tz-label-btmmargin"><i class="fas fa-file-upload tz-icnrightmargin"></i>Upload your File :</div>
+
+            <div class="col-md">
+                <label class="form-control" >
+                    <span style="float: left;padding: 5px;">
+                        <i class="fas fa-paperclip tz-icnrightmargin"></i>
+                        <span id="file-input-msg">Choose File</span>
+                        <span id="file-input-msg-pages" style="display:none;"></span>
+                    </span>
+
+                    {% render_field form.input_file id="file" style="display: none;" required="required" onchange="fileChange();" blank="false" %}
+                    <button id="preview-btn" onclick="preview(this)" type="button" class="tz-preview-btn" data-toggle="modal" data-target="#previewmodal">Preview</button>
+                    <button id="change-btn" type="submit" class="tz-preview-btn btn-warning"  style="border-radius:0px !important">Change</button>
+                </label>
+            </div>
+        </div>
+
+        <br>
+        <span style="display: none" class="text-center alert alert-danger btn-block" id="formErrorMessage"></span>
+
+{#        <button type="submit" class="btn tz-getotpbtn">Upload or Preview</button>#}
+
+   </form>
+
+
+
+    <div class="container" id="transactionFormDiv" style="display: none;">
+
+        <form id="transactionForm" action="" method="post">
+
+            {% csrf_token %}
+
+            <div class="row tz-upload-row" id="pagesblock">
+                <div class="col-md tz-label-btmmargin"><i class="fas fa-scroll tz-icnrightmargin"></i>Pages :</div>
+                <div class="col-md">
+                    <span class="form-control" id="pages"></span>
+                </div>
+            </div>
+
+
+{#            <div class="row tz-upload-row ">#}
+{#                <div class="col-md tz-label-btmmargin"><i class="fas fa-comment-alt tz-icnrightmargin"></i>Pages :</div>#}
+{#                <div class="col-md">#}
+{#                    {% render_field transaction_form.pages class="form-control" readonly="readonly" value=5 %}#}
+{#                </div>#}
+{#            </div>#}
+
+
+            <div class="row tz-upload-row ">
+                <div class="col-md tz-label-btmmargin"><i class="fas fa-rupee-sign tz-icnrightmargin"></i>Amount :</div>
+                <div class="col-md">
+                    <span class="form-control" id="amount">0</span>
+                </div>
+            </div>
+
+
+            <div class="row tz-upload-row">
+                <div class="col-md tz-label-btmmargin"><i class="fas fa-palette tz-icnrightmargin"></i>Color Mode :</div>
+
+                <div class="col-md tz-radio-marginleft">
+                    <div class=" custom-control custom-radio custom-control-inline">
+
+                        <input value="BW" type="radio" class="custom-control-input" id="black-white" name="color_model" required  checked onchange="calculateForm();">
+                        <label class="custom-control-label" for="black-white">Black & White</label>
+                    </div>
+
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input value="CL" type="radio" class="custom-control-input" id="color" name="color_model" onchange="calculateForm();">
+                        <label class="custom-control-label" for="color">Colour</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row tz-upload-row">
+                <div class="col-md tz-label-btmmargin"><i class="fas fa-copy tz-icnrightmargin"></i>Copies :</div>
+                <div class="col-md">
+                    {% render_field transaction_form.copies class="form-control" id="copies" value=1 onchange="calculateForm();" %}
+                </div>
+            </div>
+
+
+            <div class="row tz-upload-row">
+
+                <div class="col-md tz-label-btmmargin"><i class="fas fa-cash-register tz-icnrightmargin"></i>Payment Mode :</div>
+                <div class="col-md tz-radio-marginleft">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input value="AC" type="radio" class="custom-control-input" id="wallet" name="payment_mode" required>
+                        <label class="custom-control-label" for="wallet">Pay with Wallet</label>
+                    </div>
+
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input value="CO" type="radio" class="custom-control-input" id="coin" name="payment_mode">
+                        <label class="custom-control-label" for="coin">Pay with Coin</label>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row tz-upload-row">
+                <div class="col-md tz-label-btmmargin"><i class="fas fa-comment-alt tz-icnrightmargin"></i>Reference :</div>
+                <div class="col-md">
+                    {% render_field transaction_form.reference class="form-control" %}
+                </div>
+            </div>
+
+
+            <div class="text-center" style="margin:25px;">
+                <button type="submit" class="btn tz-getotpbtn">Get OTP</button>
+            </div>
+
+
+        </form>
+
+    </div>
+     <!-- Preview Modal -->
+        <div id="previewmodal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div id="canvas-container" class="modal-content">
+                  <div class="modal-header top-bar"  >
+                    <span class="tz-previewtopbar">
+                      <i class="fas fa-chevron-circle-left tz-topbaricn" id="prev"></i>
+                      <span class="page-info tz-page-info">
+                      Page <span id="page-num"></span> of <span id="page-count"></span>
+                      </span>
+                      <i class="fas fa-chevron-circle-right tz-topbaricn" id="next"></i>
+                    </span>
+                    <i data-dismiss="modal" aria-label="Close" class="fas fa-times tz-topbaricn"></i>
+                  </div>
+                </div>
+          </div>
+
+          </div>
+
+
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+
+{% endblock %}
+
+
+

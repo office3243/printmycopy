@@ -1,0 +1,74 @@
+{% extends 'portal/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add Transactions{% endblock %}
+
+{% block body %}
+
+   <form
+    enctype="multipart/form-data"
+    id="fileForm" method="POST"
+    novalidate="">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="button" class="btn btn-primary"/>
+   </form>
+
+
+    <div class="container" id="transactionFormDiv" style="display: none;">
+        <form id="transactionForm" action="">
+            {% csrf_token %}
+            {{ transaction_form|crispy }}
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+   <script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script type="text/javascript">
+    // form upload
+    $('#fileForm').submit(function(e){
+        e.preventDefault();
+        $form = $(this);
+        var formData = new FormData(this);
+        $.ajax({
+            url: window.location.pathname,
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                $('.error').remove();
+                console.log(response);
+                if(response.error){
+                    $.each(response.errors, function(name, error){
+                        error = '<small class="text-muted error">' + error + '</small>';
+                        $form.find('[name=' + name + ']').after(error);
+                    })
+                }
+                else{
+                    window.location = "";
+                }
+
+                {#$("#transactionForm").action("/transactions/add/"+response.file_uuid);#}
+                {#$("#transactionForm").attr("action", "/transactions/");#}
+
+                $("#transactionFormDiv").show();
+
+
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+    // end
+   </script>
+{% endblock %}

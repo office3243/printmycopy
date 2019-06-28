@@ -1,0 +1,30 @@
+{% extends 'portal/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+
+    <h2>Sign Up | PrintMyCopy</h2>
+
+    <div class="container col-lg-4">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.phone|as_crispy_field }}
+            {{ form.email|as_crispy_field }}
+            {{ form.password1|as_crispy_field }}
+            {{ form.password2|as_crispy_field }}
+
+
+
+
+{#            {{ form.username|as_crispy_field }}#}
+{#            {{ form|crispy }}#}
+            <input class="btn btn-info" value="Sign Up" type="submit">
+        </form>
+        <br><br><br>
+        <p>Already have an account ? <a href="{% url 'accounts:login' %}">Login</a></p>
+
+    </div>
+
+{% endblock %}

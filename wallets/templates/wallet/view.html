@@ -1,0 +1,44 @@
+{% extends "portal/base.html" %}
+
+{% block title %}Wallet{% endblock %}
+
+{% block body %}
+
+
+    <div id="account-section" class="tab-pane" role="tabpanel" aria-labelledby="account-tab">
+      <div class="text-center" style="padding: 30px 0px;">
+        <div class="tz-balancelbl">TOTAL BALANCE</div>
+        <div class="tz-balance"><i class="fas fa-rupee-sign"></i>{{ wallet.balance }}</div>
+      </div>
+      <div class="tz-account-article">
+        <div class="tz-accountarticleheading">Custom Recharge</div>
+        <form action="{% url "recharges:create_with_custom_pack" %}" method="post">
+          {% csrf_token %}
+
+          <input name="custom_price" class="form-control" type="number"  id="custom-recharge-input" placeholder="Add Amount">
+          <button class="form-control tz-account-btn" type="submit">Add Recharge</button>
+        </form>
+      </div>
+      <div class="tz-account-article">
+        <div class="tz-accountarticleheading">Offer Pack</div>
+        <ul class="list-group list-group-horizontal-md tz-accountul">
+
+
+            {% if offer_packs %}
+                {% for offer_pack in offer_packs %}
+                    <li class="list-group-item tz-account-li col-md-4">
+                        <div class="tz-accountli-heading">{{ offer_pack.get_display_text }}</div>
+                        <div class="tz-accountli-price"><i class="fas fa-rupee-sign tz-accountli-priceicn"></i>{{ offer_pack.get_price }}</div>
+                        <div>Additional Recharge :<span class="tz-account-fontweight">{{ offer_pack.get_extra_balance }}</span></div>
+                        <div>Total Recharge :<span class="tz-account-fontweight">{{ offer_pack.get_balance }}</span></div>
+                        <a href="{{ offer_pack.get_make_recharge_url }}"><button class="btn tz-accountli-btn" data-toggle="modal" data-target="#basicrechargemodal">Add Recharge</button></a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+
+        </ul>
+      </div>
+    </div>
+
+
+{% endblock %}

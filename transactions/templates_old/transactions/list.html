@@ -1,0 +1,133 @@
+{% extends 'portal/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}My Transactions{% endblock %}
+
+{% block body %}
+
+
+    <div id="transaction-section" class="tab-pane" role="tabpanel" aria-labelledby="transaction-tab">
+
+
+                      {% if transactions %}
+
+
+                          <div class="btn-group tz-btn-group-pos" role="group" >
+                              <button type="button" id="not-printed-btn" class="btn tz-singlebtn tz-singlebtn-active tz-leftbtn filter " data-filter=".non-printed">Not-Printed</button>
+                              <button type="button" id="printed-btn" class="btn tz-singlebtn tz-rightbtn filter" data-filter=".printed">Printed</button>
+                          </div>
+                          <!-- Not Printed Table -->
+                          <div class="table-responsive" id="not-printed">
+
+
+
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th class="text-center" scope="col">Sr No</th>
+                              <th class="text-center" scope="col">OTP</th>
+                              <th class="text-center" scope="col">Amount</th>
+                              <th class="text-center" scope="col">Cancel </th>
+                            </tr>
+                          </thead>
+
+                            <tbody>
+
+
+                                {% for transaction in transactions %}
+
+                                    <tr class="{% if transaction.is_printed %}printed{% else %}non-printed{% endif %}" data-bound>
+                                      <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                      <td>
+                                        <div class="text-center">{{ transaction.otp_1 }}/{{ transaction.otp_2 }}</div>
+                                        <div class="text-center">{{ transaction.file.get_pure_name }}</div>
+                                      </td>
+                                      <td class="text-center"><i class="fas fa-money-check" style="margin-right: 5px;"></i>{{ transaction.amount }}</td>
+                                      <td class="text-center">
+
+                                        {% if transaction.is_printed %}
+
+                                            <form method="post" action="{{ transaction.get_hide_url }}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn waves-light tz-icnbtn"><i class="fas fa-times tz-trashicn"></i></button>
+                                            </form>
+                                        {% else %}
+
+                                             <form method="post" action="{{ transaction.get_delete_url }}">
+                                                {% csrf_token %}
+                                                 <button type="submit" class="btn waves-light tz-icnbtn"><i class="fas fa-trash tz-trashicn"></i></button>
+                                              </form>
+                                        {% endif %}
+                                      </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                          </tbody>
+                        </table>
+
+
+
+                    {% else %}
+                        <h4>No Transactions Yet</h4>
+
+                    {% endif %}
+
+
+                  </div>
+
+                  <!-- Printed Table -->
+                  <div class="table-responsive" id="printed" style="display:none;">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="text-center" scope="col">Sr No</th>
+                          <th class="text-center" scope="col">OTP</th>
+                          <th class="text-center" scope="col">Amount</th>
+                          <th class="text-center" scope="col">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <th class="text-center" scope="row">1</th>
+                        <td>
+                          <div class="text-center">5463/2345</div>
+                          <div class="text-center">file1.pdf</div>
+                        </td>
+                        <td class="text-center"><i class="fas fa-money-check" style="margin-right: 5px;"></i>120</td>
+                        <td class="text-center">
+                          <button class="btn waves-light tz-icnbtn"><i class="fas fa-trash-alt tz-trashicn"></i></button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="text-center" scope="row">2</th>
+                        <td>
+                          <div class="text-center">1234/9865</div>
+                          <div class="text-center">file2.jpeg</div>
+                        </td>
+                        <td class="text-center"><i class="fas fa-coins" style="margin-right: 5px;"></i>20</td>
+                        <td class="text-center">
+                          <button class="btn waves-light tz-icnbtn"><i class="fas fa-trash-alt tz-trashicn"></i></button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="text-center" scope="row">3</th>
+                        <td>
+                          <div class="text-center">2567/5245</div>
+                          <div class="text-center">file3.doc</div>
+                        </td>
+                        <td class="text-center"><i class="fas fa-coins" style="margin-right: 5px;"></i>35</td>
+                        <td class="text-center">
+                          <button class="btn waves-light tz-icnbtn"><i class="fas fa-trash-alt tz-trashicn"></i></button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+{% endblock %}
+
+
+
+

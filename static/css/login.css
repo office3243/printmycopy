@@ -1,0 +1,98 @@
+
+
+body{
+    margin:0px;
+    padding:0px;
+}
+.tz-login-header{
+    padding-top: 10px;
+    height: 60px;
+    background-color: #49beb7;
+    color:white;
+}
+.tz-header-name{
+    font-size: 29px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.tz-ul{
+    background-color: #49beb7;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.14);
+}
+.tz-li{
+    width: 50%;
+    text-align: center;
+}
+.tz-link-btn{
+    color: #ccc;
+    letter-spacing: 1px;
+    font-weight: 500;
+    width:100%;
+}
+.tz-link-btn:hover{
+    color: #fff;
+}
+.tz-currentlink{
+    color:#fff;
+    font-size:20px;
+}
+.tz-inp:focus{
+    -webkit-box-shadow: 0 1px 0 0 #49beb7 !important;
+    box-shadow: 0 1px 0 0 #49beb7 !important;
+    border-bottom: 1px solid #49beb7 !important;
+}
+.tz-inp:focus + .tz-lbl-color{
+    color:#49beb7 !important;
+}
+.tz-btn-submit{
+    background-color:#49beb7 !important;
+    border-radius: 6px;
+    font-size:16px;
+    letter-spacing: 1px;
+}
+.tz-btn-submit:active{
+    background-color:#49beb7 !important;
+}
+.tz-linkbtncolorgrn{
+    color:#49beb7;
+    background: transparent;
+    border: none;
+}
+.tz-footer1{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #49beb7 !important;
+}
+.tz-footer2{
+    margin-top:10px;
+    background: #49beb7 !important;
+}
+
+/* Tablets & Large devices (tablets/laptops/desktops, 768px and up) */
+@media only screen and (min-width: 768px) {
+    #main-content{
+        width: 600px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 90px;
+        border: 1px solid #ccc;
+        background: #fff;
+        border-radius: .25rem;
+        padding-bottom: 20px;
+    }
+    body{
+        background: #f1f5f7;
+    }
+    .tz-ul{
+        padding-top: 5px;
+    }
+    .tz-header-name{
+        left:5%;
+        transform:none;
+    }
+}

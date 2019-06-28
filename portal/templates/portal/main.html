@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>PrintMyCopy</title>
+         <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="css/mdb.min.css" rel="stylesheet">
+        <!-- Your custom styles  -->
+        <link href="css/main.css" rel="stylesheet">
+    </head>
+    <body>
+        <div >
+            <div class="tz-topmenu">
+               <!-- Header Tag -->
+               <div class="tz-header col-md-6">
+                  <span class="tz-header-name"> 
+                    PrintMyCopy
+                  </span>
+               </div>
+              <!-- NavBar -->
+              <ul class="nav tz-ul col-md-6" role="tablist">
+                <li class="nav-items tz-li"><a class="nav-link waves-light active show tz-linkbtn tz-currentlink" id="home-tab" onclick="currentlink(this.id);" data-toggle="tab" href="#home-section" role="tab" ariaicontrols="home-section" aria-selected="true"><i class="fas fa-home"></i></a></li>
+                <li class="nav-items tz-li"><a class="nav-link waves-light tz-linkbtn" id="upload-tab" onclick="currentlink(this.id);" data-toggle="tab" href="#upload-section" role="tab" ariaicontrols="upload-section" aria-selected="false"><i class="fas fa-upload"></i></a></li>
+                <li class="nav-items tz-li"><a class="nav-link waves-light tz-linkbtn" id="transaction-tab" onclick="currentlink(this.id);" data-toggle="tab" href="#transaction-section" role="tab" ariaicontrols="transaction-section" aria-selected="false"><i class="fas fa-history"></i></a></li>
+                <li class="nav-items tz-li"><a class="nav-link waves-light tz-linkbtn" id="account-tab" onclick="currentlink(this.id);" data-toggle="tab" href="#account-section" role="tab" ariaicontrols="account-section" aria-selected="false"><i class="fas fa-wallet"></i></a></li>
+              </ul>
+            </div>
+
+
+
+            <div class="tab-content container" id="myClassicTab">
+
+                <!-- Home Section -->
+                <div id="home-section" class="tab-pane fade active show" role="tabpanel" aria-labelledby="home-tab">Home</div>
+                
+                <!-- Upload Section -->
+                <div id="upload-section" class="tab-pane fade" role="tabpanel" aria-labelledby="upload-tab">
+                  <form action="" method="get">
+                    <div class="row tz-upload-row">
+                      <div class="col-md tz-label-btmmargin"><i class="fas fa-file-upload tz-icnrightmargin"></i>Upload your File :</div>
+                      <div class="col-md">
+                          <label class="form-control" >
+                              <span style="float: left;padding: 5px;">
+                                  <i class="fas fa-paperclip tz-icnrightmargin"></i>
+                                  <span id="file-input-msg">Choose File</span>
+                              </span>
+                              <input required  onchange="fileChange(this);" style="display: none;" id="file"  type="file"  >
+                              <button onclick="preview();" type="button" class="tz-preview-btn">Preview</button>
+                          </label>
+                          
+                      </div>
+                    </div>
+                    <div id="container" style="display: none;">
+                      <div class="top-bar tz-previewtopbar"  style="color:white;">
+                          <i class="fas fa-chevron-circle-left tz-topbaricn" id="prev"></i>
+                            <span class="page-info tz-pagenum">
+                              Page <span id="page-num"></span> of <span id="page-count"></span>
+                            </span>
+                          <i class="fas fa-chevron-circle-right tz-topbaricn" id="next"></i>
+                          <i onclick="previewClose();" class="fas fa-times tz-topbaricncross"></i>
+                  </div>
+                   </div>
+                    <div class="row tz-upload-row">
+                      <div class="col-md tz-label-btmmargin"><i class="fas fa-scroll tz-icnrightmargin"></i>Pages :</div>
+                      <div class="col-md">
+                        <span   id="pages">10</span>
+                      </div>
+                    </div>
+                    <div class="row tz-upload-row">
+                      <div class="col-md tz-label-btmmargin"><i class="fas fa-palette tz-icnrightmargin"></i>Color Mode :</div>
+                      <div class="col-md tz-radio-marginleft">
+                          <div class=" custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input" id="black-white" name="color-mode" required>
+                              <label class="custom-control-label" for="black-white">Black & White</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input" id="color" name="color-mode">
+                              <label class="custom-control-label" for="color">Colour</label>
+                            </div>
+                      </div>
+                    </div>
+                    <div class="row tz-upload-row">
+                      <div class="col-md tz-label-btmmargin"><i class="fas fa-copy tz-icnrightmargin"></i>Copies :</div>
+                      <div class="col-md">
+                        <input class="form-control" type="number" name="copies" id="copies" value = "1" required>
+                      </div>
+                    </div>
+                    <div class="row tz-upload-row">
+                      <div class="col-md tz-label-btmmargin"><i class="fas fa-rupee-sign tz-icnrightmargin"></i>Amount :</div>
+                      <div class="col-md">
+                        <span id="amount">56</span>
+                      </div>
+                    </div>
+                    <div class="row tz-upload-row">
+                      <div class="col-md tz-label-btmmargin"><i class="fas fa-cash-register tz-icnrightmargin"></i>Payment Mode :</div>
+                      <div class="col-md tz-radio-marginleft">
+                          <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input" id="wallet" name="payment-mode" required>
+                              <label class="custom-control-label" for="wallet">Pay with Wallet</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input" id="coin" name="payment-mode">
+                              <label class="custom-control-label" for="coin">Pay with Coin</label>
+                            </div>
+                      </div>
+                    </div>
+                    <div class="row tz-upload-row">
+                      <div class="col-md tz-label-btmmargin"><i class="fas fa-comment-alt tz-icnrightmargin"></i>Reference :</div>
+                      <div class="col-md">
+                        <input class="form-control" type="text" name="reference" id="reference">
+                      </div>
+                    </div>
+                    <div class="text-center" style="margin:25px;"><button class="btn tz-getotpbtn">Get OTP</button></div>
+                  </form>
+
+
+
+
+                </div>
+
+
+
+
+                <!-- Transaction Section -->
+
+
+
+                <!-- Account Section -->
+                <div id="account-section" class="tab-pane fade" role="tabpanel" aria-labelledby="account-tab">
+                  <div class="text-center" style="padding: 30px 0px;">
+                    <div class="tz-balancelbl">TOTAL BALANCE</div>
+                    <div class="tz-balance"><i class="fas fa-rupee-sign"></i>540</div>                    
+                  </div>
+                  <div>
+                    <form action="" method="post">
+                      <input type="number"  id="">
+                      <button type="submit">Custom Recharge</button>
+                    </form>
+                  </div>
+                  <div>
+                    <div></div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- SCRIPTS -->
+        <!-- JQuery -->
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="js/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <!-- Pdfjs JavaScript -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.min.js"></script>
+         <!-- Main JavaScript -->
+        <script type="text/javascript" src="js/main.js"></script>
+        <!-- Preview JavaScript -->
+        <script type="text/javascript" src="js/preview.js"></script>
+    </body>
+</html>

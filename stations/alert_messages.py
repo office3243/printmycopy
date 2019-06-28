@@ -1,0 +1,5 @@
+#   SUCCESS MESSAGES
+
+#   INFO
+
+#   WARNING
