@@ -5,17 +5,16 @@ from . models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import password_validation
-from django.contrib.auth import get_user_model
 
 USER_MODEL = User
 
 
 class CustomLoginForm(AuthenticationForm):
-    username = forms.CharField(max_length=14, widget=forms.TextInput(attrs={"class": "input-medium bfh-phone", "data-format": "+91dddddddddd"}))
+    username = forms.CharField(max_length=13, widget=forms.TextInput(attrs={"class": "input-medium bfh-phone", "data-format": "+91dddddddddd"}))
 
 
 class RegisterForm(UserCreationForm):
-    phone = forms.CharField(max_length=14, widget=forms.TextInput(attrs={"class": "input-medium bfh-phone", "data-format": "+91dddddddddd"}))
+    phone = forms.CharField(max_length=13, widget=forms.TextInput(attrs={"class": "input-medium bfh-phone", "data-format": "+91dddddddddd"}))
 
     class Meta:
         model = User
@@ -24,7 +23,7 @@ class RegisterForm(UserCreationForm):
 
 class PasswordResetForm(forms.Form):
 
-    phone = forms.CharField(max_length=14, widget=forms.TextInput(attrs={"class": "input-medium bfh-phone", "data-format": "+91dddddddddd"}))
+    phone = forms.CharField(max_length=13, min_length=13, widget=forms.TextInput(attrs={"class": "input-medium bfh-phone", "data-format": "+91dddddddddd"}))
 
     class Meta:
         fields = ('phone', )
