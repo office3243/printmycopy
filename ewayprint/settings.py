@@ -116,11 +116,11 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 
 from django.contrib import messages
@@ -157,6 +157,10 @@ PAYU_MERCHANT_KEY = "mdLYzH6I"
 PAYU_KEY = "mdLYzH6I"
 PAYU_SALT = "BgIZKB6m9D"
 PAYMENT_MODE ='TEST'
+#
+PAYU_SUCCESS_URL = SITE_DOMAIN + "payments/success/"
+PAYU_FAILURE_URL = SITE_DOMAIN + "payments/failure/"
 
-PAYU_SUCCESS_URL = reverse_lazy("payments:payment_success")
-PAYU_FAILURE_URL = reverse_lazy("payments:payment_failure")
+#
+# PAYU_SUCCESS_URL = "payments:payment_success"
+# PAYU_FAILURE_URL = "payments:payment_failure"

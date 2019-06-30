@@ -50,3 +50,6 @@ class Complaint(models.Model):
     def get_display_text(self):
         return self.user.get_display_text
 
+    @property
+    def get_date(self):
+        return self.on.date

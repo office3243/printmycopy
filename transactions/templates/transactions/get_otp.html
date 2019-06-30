@@ -1,18 +1,12 @@
 {% extends 'portal/base.html' %}
 {% load crispy_forms_tags %}
-
 {% block title %}Add Transaction{% endblock %}
-
 {% block body %}
-
-    <h2 class="text-center">File Upload Successfull</h2>
-    <hr>
-
-    <div class="container col-lg-4">
-
-        <h4>Your otp 1 is : {{ otp_1 }}</h4>
-        <h4>Your otp 2 is : {{ otp_2 }}</h4>
-
+    <div class="text-center">
+        <br>
+        <h3 class="text-center text-black-50 font-weight-bold">File Upload Successful</h3>
+        <hr>
+        <h4 class="text-black-50 font-weight-bold">Your otp 1 is : {{ otp_1 }}</h4>
+        <h4 class="text-black-50 font-weight-bold">Your otp 2 is : {{ otp_2 }}</h4>
     </div>
-
 {% endblock %}

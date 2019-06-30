@@ -1,5 +1,4 @@
 import img2pdf
-import time
 from PIL import Image
 import os
 from django.conf import settings
@@ -15,7 +14,6 @@ def pdf_converter(file):
 
 
 def jpg_converter(file):
-
     try:
         pdf_path_raw = file.get_pdf_path_raw
         pdf_path = file.get_pdf_path
@@ -26,13 +24,11 @@ def jpg_converter(file):
         file.converted_file = pdf_path
         file.save()
         return True
-
     except Exception as e:
         return False
 
 
 def png_converter(file):
-
     try:
         png_path = file.input_file.path
         png = Image.open(png_path)

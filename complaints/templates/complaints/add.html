@@ -1,22 +1,16 @@
 {% extends 'portal/base.html' %}
 {% load crispy_forms_tags %}
-
 {% block title %}Add Complaints{% endblock %}
-
 {% block body %}
-
-    <h3 class="text-center">My Complaints</h3>
-
-    <div class="container col-lg-4">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            {{ form|crispy }}
-
-
-            <input class="btn btn-info" value="Add Complaint" type="submit"/>
-        </form>
-
+    <div class="text-center">
+        <br><br>
+        <h3 class="text-center text-black-50 font-weight-bold">Add Complaint</h3>
+        <div class="container col-lg-4">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input class="btn btn-default" value="Add Complaint" type="submit"/>
+            </form>
+        </div>
     </div>
-
 {% endblock %}
