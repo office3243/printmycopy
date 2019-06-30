@@ -54,7 +54,7 @@ class TransactionAddView(CreateView):
 
             if form.instance.payment_mode == "AC":
                 if amount > self.request.user.wallet.balance:
-                    messages.warning(self.request, settings.INSUFFICIENT_BALANCE_MESSAGE)
+                    messages.warning(self.request, alert_messages.INSUFFICIENT_BALANCE_MESSAGE)
                     return redirect("wallets:view")
                 else:
                     self.request.user.wallet.deduct_amount(amount)

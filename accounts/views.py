@@ -17,7 +17,7 @@ from django.shortcuts import get_object_or_404
 
 
 USER_MODEL = User
-api_key_2fa = settings.API_KEY_2FA
+API_KEY_2FA = settings.API_KEY_2FA
 
 registeration_otp_template = "Registration_Template"
 
@@ -28,7 +28,7 @@ def send_otp_2fa(request, phone, purpose):
     otp_template = registeration_otp_template if purpose==1 else password_reset_otp_template
     if 'user_session_data' in request.session:
         del request.session['user_session_data']
-    url = "http://2factor.in/API/V1/{api_key_2fa}/SMS/{phone}/AUTOGEN/{otp_template}".format(api_key_2fa=api_key_2fa,
+    url = "http://2factor.in/API/V1/{API_KEY_2FA}/SMS/{phone}/AUTOGEN/{otp_template}".format(API_KEY_2FA=API_KEY_2FA,
                                                                                       phone=phone, otp_template=otp_template)
     response = requests.request("GET", url)
     data = response.json()
@@ -51,7 +51,7 @@ def password_reset_otp_generate(request, user):
 
 
 def check_otp_2fa(otp, otp_session_data):
-    url = "http://2factor.in/API/V1/{0}/SMS/VERIFY/{1}/{2}".format(api_key_2fa,
+    url = "http://2factor.in/API/V1/{0}/SMS/VERIFY/{1}/{2}".format(API_KEY_2FA,
                                                                    otp_session_data, otp)
     response = requests.request("GET", url)
     data = response.json()

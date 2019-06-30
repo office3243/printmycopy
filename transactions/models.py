@@ -15,12 +15,12 @@ from PyPDF2 import PdfFileReader
 
 
 # SITE_DOMAIN = "http://www.printmycopy.com/"
-# SITE_DOMAIN_2 = "http://www.printmycopy.com"
+# SITE_DOMAIN_NAKED = "http://www.printmycopy.com"
 
 SITE_DOMAIN = "http://127.0.0.1:8000/"
-SITE_DOMAIN_2 = "http://127.0.0.1:8000"
+SITE_DOMAIN_NAKED = "http://127.0.0.1:8000"
 
-media_path = settings.MEDIA_ROOT
+MEDIA_PATH = settings.MEDIA_ROOT
 
 
 USER_MODEL = settings.AUTH_USER_MODEL
@@ -85,7 +85,7 @@ class Transaction(models.Model):
 
     @property
     def get_file_url(self):
-        return SITE_DOMAIN_2 + self.file.converted_file.url
+        return SITE_DOMAIN_NAKED + self.file.converted_file.url
 
     @property
     def calculate_amount(self):
@@ -156,11 +156,11 @@ class File(models.Model):
 
     @property
     def get_jpg_path_temp(self):
-        return media_path + "/" + self.input_files_path + self.get_pure_name+'.jpg'
+        return MEDIA_PATH + self.input_files_path + self.get_pure_name+'.jpg'
 
     @property
     def get_pdf_path_raw(self):
-        return media_path + "/" + self.get_pdf_path
+        return MEDIA_PATH + self.get_pdf_path
 
     @property
     def convert_input_file(self):
@@ -175,7 +175,7 @@ class File(models.Model):
 
     @property
     def get_file_url(self):
-        return SITE_DOMAIN_2 + self.converted_file.url
+        return SITE_DOMAIN_NAKED + self.converted_file.url
 
     @property
     def count_pdf_pages(self):

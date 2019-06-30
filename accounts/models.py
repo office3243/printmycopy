@@ -15,8 +15,6 @@ from wallets.models import Wallet
 from django.db.models.signals import post_save
 from django.core.exceptions import ValidationError
 
-api_key_2fa = settings.API_KEY_2FA
-
 
 class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(_('phone number'), max_length=13, validators=[phone_number_validator, ], unique=True)

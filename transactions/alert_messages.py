@@ -15,6 +15,8 @@ TRANSACTION_HIDEED_MESSGAE = "Transaction Hided Successfully"
 
 #   WARNING
 
+INSUFFICIENT_BALANCE_MESSAGE = "You don't have enough balance. Kindly recharge your wallet to make this transaction"
+
 FILE_HAS_ERROR_MESSAGE = "File hass errors or not supported."
 
 GETTING_ISSUES = "Getting issues with this file."

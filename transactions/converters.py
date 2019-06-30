@@ -35,7 +35,6 @@ def png_converter(file):
 
     try:
         png_path = file.input_file.path
-        print(png_path)
         png = Image.open(png_path)
         jpg_path = file.get_jpg_path_temp
         rgb_im = png.convert('RGB')
