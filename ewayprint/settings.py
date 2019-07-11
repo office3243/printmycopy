@@ -4,9 +4,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'mvazb9#yw1*vro%mbz-dm*72i-=a0l$ppgvqi)lyaq2x&*03z9'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["printmycopy.com", "www.printmycopy.com", "209.124.64.50"]
+ALLOWED_HOSTS = ["printmycopy.com", "www.printmycopy.com"]
 
 
 INSTALLED_APPS = [
